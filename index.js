@@ -10,14 +10,12 @@ function instance(system, id, config) {
 	instance_skel.apply(this, arguments);
 
 	self.actions(); // export actions
-	self.init_presets();
 
 	return self;
 }
 
 instance.prototype.updateConfig = function(config) {
 	var self = this;
-	self.init_presets();
 
 	if (self.udp !== undefined) {
 		self.udp.destroy();
@@ -38,10 +36,9 @@ instance.prototype.init = function() {
 
 	debug = self.debug;
 	log = self.log;
-	self.init_presets();
 
 	self.init_udp();
-	
+
 };
 
 instance.prototype.init_udp = function() {
@@ -77,8 +74,14 @@ instance.prototype.init_udp = function() {
 // Return config fields for web config
 instance.prototype.config_fields = function () {
 	var self = this;
-
 	return [
+		{
+			type: 'text',
+			id: 'info',
+			width: 12,
+			label: 'Information',
+			value: 'This module is for the Brightsign players'
+		},
 		{
 			type: 'textinput',
 			id: 'host',
@@ -103,34 +106,10 @@ instance.prototype.destroy = function() {
 	debug("destroy", self.id);;
 };
 
-instance.prototype.init_presets = function () {
-	var self = this;
-	var presets = [];
-/*
-		presets.push({
-			category: 'Program',
-			label: 'Take',
-			bank: {
-				style: 'text',
-				text: 'Take',
-				size: '24',
-				color: '16777215',
-				bgcolor: self.rgb(0,255,0)
-			},
-			actions: [
-				{
-					action: 'take',
-				}
-			]
-		});
-*/
-	self.setPresetDefinitions(presets);
-}
-
 instance.prototype.actions = function(system) {
 	var self = this;
 
-	self.system.emit('instance_actions', self.id, {
+	var actions = {
 
 		'PAUSE':	{ label: 'Pause' },
 		'RESUME':	{ label: 'Resume' },
@@ -186,8 +165,8 @@ instance.prototype.actions = function(system) {
 				regex: self.REGEX_NUMBER
 			}]
 		}
-
-	});
+	};
+		self.setActions(actions);
 };
 
 instance.prototype.action = function(action) {
