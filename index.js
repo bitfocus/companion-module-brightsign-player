@@ -165,14 +165,14 @@ instance.prototype.actions = function(system) {
 				regex: self.REGEX_NUMBER
 			}]
 		},
-                'CUSTOM': {
-                        label: 'Custom command',
-                        options: [{
-                                type: 'textinput',
-                                label: 'custom command',
-                                id: 'custom'
-                        }]
-                }
+		'CUSTOM': {
+			label: 'Custom command',
+			options: [{
+				type: 'textinput',
+				label: 'custom command',
+				id: 'custom'
+			}]
+		}
 	};
 		self.setActions(actions);
 };
@@ -249,9 +249,9 @@ instance.prototype.action = function(action) {
 			cmd = 'VOLUME '+opt.volume;
 			break;
 
-                case 'CUSTOM':
-                        cmd = opt.custom;
-                        break;
+		case 'CUSTOM':
+			cmd = opt.custom;
+			break;
 
 	}
 

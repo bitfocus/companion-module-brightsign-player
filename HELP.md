@@ -13,3 +13,4 @@
 * LOOP Loop seamless (no audio in video) [filename]
 * SEARCH - Check if file is present [filename]
 * VOLUME - Set Volume in percentage
+* CUSTOM ability to send a custom UDP message
