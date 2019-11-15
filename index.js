@@ -49,10 +49,10 @@ instance.prototype.init_udp = function() {
 		delete self.udp;
 	}
 
-	self.status(self.STATE_WARNING, 'Connecting');
+	self.status(self.STATE_WARNING, 'Waiting for data');
 
 	if (self.config.host !== undefined) {
-		self.udp = new udp(self.config.host, 21075);
+		self.udp = new udp(self.config.host, self.config.port);
 
 		self.udp.on('error', function (err) {
 			debug("Network error", err);
@@ -80,7 +80,7 @@ instance.prototype.config_fields = function () {
 			id: 'info',
 			width: 12,
 			label: 'Information',
-			value: 'This module is for the Brightsign players'
+			value: 'This module is for the Brightsign players, please read the help'
 		},
 		{
 			type: 'textinput',
@@ -88,6 +88,14 @@ instance.prototype.config_fields = function () {
 			label: 'Target IP',
 			width: 6,
 			regex: self.REGEX_IP
+		},
+		{
+			type: 'textinput',
+			id: 'port',
+			label: 'UDP port',
+			width: 6,
+			default: '5000',
+			regex: self.REGEX_NUMBER
 		}
 	]
 };
@@ -103,7 +111,7 @@ instance.prototype.destroy = function() {
 		self.udp.destroy();
 	}
 
-	debug("destroy", self.id);;
+	debug("destroy", self.id);
 };
 
 instance.prototype.actions = function(system) {
@@ -111,6 +119,14 @@ instance.prototype.actions = function(system) {
 
 	var actions = {
 
+		'CUSTOM': {
+			label: 'Custom command',
+			options: [{
+				type: 'textinput',
+				label: 'custom command',
+				id: 'custom'
+			}]
+		},
 		'PAUSE':	{ label: 'Pause' },
 		'RESUME':	{ label: 'Resume' },
 		'REBOOT':	{ label: 'Reboot' },
@@ -163,14 +179,6 @@ instance.prototype.actions = function(system) {
 				label: 'volume',
 				id: 'volume',
 				regex: self.REGEX_NUMBER
-			}]
-		},
-		'CUSTOM': {
-			label: 'Custom command',
-			options: [{
-				type: 'textinput',
-				label: 'custom command',
-				id: 'custom'
 			}]
 		}
 	};
@@ -243,7 +251,6 @@ instance.prototype.action = function(action) {
 				cmd = 'SEARCH';
 			}
 			break;
-
 
 		case 'VOLUME':
 			cmd = 'VOLUME '+opt.volume;
