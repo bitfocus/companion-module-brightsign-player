@@ -4,7 +4,7 @@
 	"api_version": "1.0.0",
 	"keywords": [
 		"Media"
-		],
+	],
 	"manufacturer": "BrightSign",
 	"product": "Player",
 	"shortname": "BrightSign",
@@ -14,5 +14,13 @@
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "Jeffrey Davidsz <jeffrey.davidsz@vicreo.eu>",
-	"license": "MIT"
+	"license": "MIT",
+	"homepage": "https://github.com/bitfocus/companion-module-brightsign-player#readme",
+	"bugs": {
+		"url": "https://github.com/bitfocus/companion-module-brightsign-player/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/bitfocus/companion-module-brightsign-player.git"
+	}
 }
