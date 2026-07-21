@@ -588,6 +588,16 @@ if right(model$,1)="3" then control.networkOn=true
 
 'end series 3 change'
 
+'----series4 change------'
+if right(model$,1)="4" then control.networkOn=true
+
+'end series 4 change'
+
+'----series5 change------'
+if right(model$,1)="5" then control.networkOn=true
+
+'end series 5 change'
+
 if len(model$) = 6 then 
 	control.networkOn=true
 	control.serialOn=true
